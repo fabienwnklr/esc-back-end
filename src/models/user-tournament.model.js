@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const UserTournament = sequelize.define('User_tournament', {
+    const UserTournament = sequelize.define('User_tournaments', {
         // Model attributes are defined here
         user_id: {
             type: Sequelize.INTEGER(11),
