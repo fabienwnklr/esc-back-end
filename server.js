@@ -14,14 +14,15 @@ app.use(cors);
 
 const db = require('./src/models');
 
-db.sequelize.sync({force: true});
+// ! force true à retirer en mise en prod !
+db.sequelize.sync({ force: true });
 
 app.get('/', (req, res) => {
-    res.send('Hello World!')
+    res.send('Hello World!');
 });
 
 // require('./src/routes/user.routes')(app);
 
 app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`)
+    console.log(`Example app listening at http://localhost:${port}`);
 });
