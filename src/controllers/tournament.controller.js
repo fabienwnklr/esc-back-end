@@ -4,7 +4,7 @@ const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
     console.log(req);
-    if (!req.body.name || !req.body.start_date || !req.body.nb_participants) {
+    if (!req.body || req.body.length < 4) {
         res.status(400).json({
             message: 'Veuillez remplir tous les champs.'
         });
@@ -13,6 +13,7 @@ exports.create = (req, res) => {
 
     const tournament = {
         name: req.body.name,
+        game: req.body.game,
         start_date: req.body.start_date,
         nb_participants: req.body.nb_participants
     };
