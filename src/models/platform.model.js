@@ -1,22 +1,9 @@
 module.exports = (sequelize, Sequelize) => {
-    const User = sequelize.define('Users', {
+    const Platform = sequelize.define('Platforms', {
         // Model attributes are defined here
-        username: {
+        name: {
             type: Sequelize.STRING(255),
             allowNull: false
-        },
-        email: {
-            type: Sequelize.STRING(255),
-            allowNull: false,
-            unique: true,
-        },
-        password: {
-            type: Sequelize.STRING(255),
-            allowNull: false
-        },
-        team_id: {
-            type: Sequelize.INTEGER(11),
-            unique: true
         },
         createdAt: {
             type: Sequelize.DATE,
@@ -30,5 +17,5 @@ module.exports = (sequelize, Sequelize) => {
         }
     });
 
-    return User;
+    return Platform;
 }

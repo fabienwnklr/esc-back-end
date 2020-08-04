@@ -10,3 +10,12 @@ exports.register = (req, res) => {
        return;
    }
 }
+
+exports.login = (req, res) => {
+    if (!req.body.username || !req.body.email || !req.body.password) {
+        res.status(400).json({
+            message: 'Veuillez remplir tous les champs.'
+        });
+        return;
+    }
+}

@@ -9,7 +9,10 @@ const cors = require('cors')
 // Request parsing
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors({ origin: 'http://localhost:5000' }));
+app.use(cors({ origin: 'http://localhost:3000' }));
+app.use(express.json({
+    type: ['application/json', 'text/plain']
+}));
 
 const db = require('./src/models');
 
@@ -23,6 +26,7 @@ app.get('/', (req, res) => {
 });
 
 require('./src/routes/user.routes')(app);
+require('./src/routes/tournament.routes')(app);
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);

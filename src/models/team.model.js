@@ -1,22 +1,15 @@
 module.exports = (sequelize, Sequelize) => {
-    const User = sequelize.define('Users', {
-        // Model attributes are defined here
-        username: {
-            type: Sequelize.STRING(255),
-            allowNull: false
-        },
-        email: {
+    const Team = sequelize.define('Teams', {
+        name: {
             type: Sequelize.STRING(255),
             allowNull: false,
-            unique: true,
         },
-        password: {
-            type: Sequelize.STRING(255),
-            allowNull: false
-        },
-        team_id: {
-            type: Sequelize.INTEGER(11),
-            unique: true
+        admin: {
+            type: Sequelize.INTEGER,
+            references: {
+                model: 'users',
+                key: 'id'
+            }
         },
         createdAt: {
             type: Sequelize.DATE,
@@ -30,5 +23,5 @@ module.exports = (sequelize, Sequelize) => {
         }
     });
 
-    return User;
+    return Team;
 }
