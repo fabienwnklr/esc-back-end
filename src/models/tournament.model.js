@@ -8,18 +8,11 @@ module.exports = (sequelize, Sequelize) => {
         start_date: {
             type: Sequelize.STRING(255),
             allowNull: false,
-            unique: true,
+            unique: true
         },
-        game_id: {
-            type: Sequelize.INTEGER,
-            allNull: false,
-            // references: {
-            //     // This is a reference to another model
-            //     model: 'games',
-            //     // This is the column name of the referenced model
-            //     key: 'id',
-
-            // }
+        nb_participant: {
+            type: Sequelize.INTEGER(3),
+            allowNull: false
         },
         createdAt: {
             type: Sequelize.DATE,

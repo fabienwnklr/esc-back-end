@@ -4,8 +4,13 @@ module.exports = app => {
 
     router.post('/create', tournaments.create);
 
-    router.get('/tournaments', tournaments.getAll);
-    // router.put('/:id', users.update);
+    router.get('/', tournaments.findAll);
 
-    app.use('/api/tournament', router);
+    router.get('/:id', tournaments.findOne);
+
+    router.put('/:id', tournaments.update);
+
+    router.delete('/:id', tournaments.delete);
+
+    app.use('/api/tournaments', router);
 }

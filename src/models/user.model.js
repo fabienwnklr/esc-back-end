@@ -14,6 +14,10 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING(255),
             allowNull: false
         },
+        is_admin: {
+            type: Sequelize.BOOLEAN,
+            defaultValue: false
+        },
         team_id: {
             type: Sequelize.INTEGER(11),
             unique: true
