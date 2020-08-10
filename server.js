@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const port = process.env.PORT;
 const cors = require('cors')
+const helmet = require('helmet');
 
 // Request parsing
 app.use(bodyParser.json());
@@ -14,6 +15,9 @@ app.use(express.json({
     type: ['application/json', 'text/plain']
 }));
 
+// ** Security
+app.use(helmet());
+
 // *Models
 const db = require('./src/models');
 
@@ -22,9 +26,8 @@ const db = require('./src/models');
 require('./src/routes/user.routes')(app);
 require('./src/routes/tournament.routes')(app);
 
-// ! force true à retirer en mise en prod !
-db.sequelize.sync({ force: true }).then(() => {
-    console.log('Drop and re-sync db.');
+db.sequelize.sync().then(() => {
+    console.log('Re-sync db.');
     app.listen(port, () => {
         console.log(`Example app listening at http://localhost:${port}`);
     });
