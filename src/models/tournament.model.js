@@ -14,6 +14,10 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.INTEGER(3),
             allowNull: false
         },
+        author: {
+            type: Sequelize.STRING(255),
+            allowNull: false
+        },
         createdAt: {
             type: Sequelize.DATE,
             defaultValue: sequelize.literal('NOW()'),

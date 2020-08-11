@@ -2,6 +2,8 @@ const db = require('../models');
 const { Sequelize } = require('../models');
 const User = db.users;
 const { Op } = require('sequelize');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 exports.register = (req, res) => {
     if (!req.body.username || !req.body.email || !req.body.password) {
@@ -13,28 +15,57 @@ exports.register = (req, res) => {
     const newUser = {
         username: req.body.username,
         email: req.body.email,
-        password: req.body.password
+        password: bcrypt.hashSync(req.body.password, 15)
     };
 
     User.create(newUser)
         .then(data => {
-            console.log(req); return;
-            User.login(req);
+            this.login(req, res);
         })
         .catch(error => {
             res.status(500).send({
-                message: error.message || `Une erreur est survenue lors de la création de l'utilisateur.`
+                errorThrow: error,
+                message: `Une erreur est survenue lors de la création de l'utilisateur.`
             });
         });
 }
 
 exports.login = (req, res) => {
-    if (!req.body.username || !req.body.email || !req.body.password) {
+    const email = req.body.email;
+    const pwd = req.body.password;
+    if (!email || !pwd) {
         res.status(400).json({
             message: 'Veuillez remplir tous les champs.'
         });
         return;
     }
+
+    User.findOne({ where: { email: email } })
+        .then(data => {
+            const userFind = data.dataValues;
+            console.log(userFind)
+            if (bcrypt.compareSync(pwd, userFind.password)) {
+                const userLogged = {
+                    id: userFind.id,
+                    username: userFind.username,
+                    email: userFind.email
+                }
+                jwt.sign({ user: userLogged }, 'secretkey', { expiresIn: '5min' }, (err, token) => {
+                    if (err) res.json(err)
+                    res.send({ auth: true, token: token, user: userLogged }).status(200)
+                })
+            } else {
+                res.status(403).send({
+                    message: 'Mot de passe incorrect'
+                })
+            }
+        })
+        .catch(err =>
+            res.status(500).send({
+                errorThrow: err.message,
+                message: 'Erreur de connexion.'
+            })
+        )
 }
 
 exports.findOne = (req, res) => {

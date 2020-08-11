@@ -7,13 +7,14 @@ const port = process.env.PORT;
 const cors = require('cors')
 const helmet = require('helmet');
 
-// Request parsing
+// Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors({ origin: 'http://localhost:3000' }));
+app.use(cors());
 app.use(express.json({
     type: ['application/json', 'text/plain']
 }));
+
 
 // ** Security
 app.use(helmet());
