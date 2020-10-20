@@ -42,13 +42,19 @@ exports.login = (req, res) => {
 
     User.findOne({ where: { email: email } })
         .then(data => {
+            if (!data) {
+                res.status(400).send({
+                    message: 'Utilisateur introuvable'
+                });
+                return;
+            }
             const userFind = data.dataValues;
-            console.log(userFind)
             if (bcrypt.compareSync(pwd, userFind.password)) {
                 const userLogged = {
                     id: userFind.id,
                     username: userFind.username,
-                    email: userFind.email
+                    email: userFind.email,
+                    is_admin: userFind.is_admin
                 }
                 jwt.sign({ user: userLogged }, 'secretkey', { expiresIn: '5min' }, (err, token) => {
                     if (err) res.json(err)

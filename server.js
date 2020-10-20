@@ -4,7 +4,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const port = process.env.PORT;
-const cors = require('cors')
+const cors = require('cors');
 const helmet = require('helmet');
 
 // Middleware
@@ -25,7 +25,7 @@ const db = require('./src/models');
 
 // ? Routes
 require('./src/routes/user.routes')(app);
-require('./src/routes/tournament.routes')(app);
+require('./src/routes/tournament.routes')(app); 
 
 db.sequelize.sync().then(() => {
     console.log('Re-sync db.');
