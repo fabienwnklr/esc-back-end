@@ -4,8 +4,9 @@ const Tournament = db.tournaments;
 const { Op } = require('sequelize');
 
 exports.create = (req, res) => {
-    console.log(req);
-    if (!req.body || req.body.length < 4) {
+    console.log(req.body);
+    console.log(req.params);
+    if (!req.body) {
         res.status(400).json({
             message: 'Veuillez remplir tous les champs.'
         });
@@ -15,7 +16,8 @@ exports.create = (req, res) => {
     const newTournament = {
         name: req.body.name,
         start_date: req.body.start_date,
-        nb_participants: req.body.nb_participants,
+        author: req.body.author,
+        // nb_participants: req.body.nb_participants,
         user: {
             id: req.params.user_id
         },

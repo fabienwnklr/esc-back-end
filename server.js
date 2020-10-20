@@ -6,7 +6,7 @@ const app = express();
 const port = process.env.PORT;
 const cors = require('cors');
 const helmet = require('helmet');
-
+const authJwt = require('./src/middleware/authJwt');
 // Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -24,7 +24,12 @@ const db = require('./src/models');
 
 
 // ? Routes
-require('./src/routes/user.routes')(app);
+app.get('/api/checkToken', authJwt.verifyToken, (req, res) => {
+    res.status(200).send({
+        message: 'token valid'
+    })
+})
+require('./src/routes/auth.routes')(app);
 require('./src/routes/tournament.routes')(app); 
 
 db.sequelize.sync().then(() => {

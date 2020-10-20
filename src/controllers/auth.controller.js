@@ -19,7 +19,7 @@ exports.register = (req, res) => {
     };
 
     User.create(newUser)
-        .then(data => {
+        .then(() => {
             this.login(req, res);
         })
         .catch(error => {
@@ -31,16 +31,16 @@ exports.register = (req, res) => {
 }
 
 exports.login = (req, res) => {
-    const email = req.body.email;
-    const pwd = req.body.password;
-    if (!email || !pwd) {
+    const emailSend = req.body.email;
+    const passwordSend = req.body.password;
+    if (!emailSend || !passwordSend) {
         res.status(400).json({
             message: 'Veuillez remplir tous les champs.'
         });
         return;
     }
 
-    User.findOne({ where: { email: email } })
+    User.findOne({ where: { email: emailSend } })
         .then(data => {
             if (!data) {
                 res.status(400).send({
@@ -49,20 +49,20 @@ exports.login = (req, res) => {
                 return;
             }
             const userFind = data.dataValues;
-            if (bcrypt.compareSync(pwd, userFind.password)) {
+            if (bcrypt.compareSync(passwordSend, userFind.password)) {
                 const userLogged = {
                     id: userFind.id,
                     username: userFind.username,
                     email: userFind.email,
                     is_admin: userFind.is_admin
                 }
-                jwt.sign({ user: userLogged }, 'secretkey', { expiresIn: '5min' }, (err, token) => {
+                jwt.sign({ user: userLogged }, 'secretkey', { expiresIn: '15min' }, (err, token) => {
                     if (err) res.json(err)
                     res.send({ auth: true, token: token, user: userLogged }).status(200)
                 })
             } else {
                 res.status(403).send({
-                    message: 'Mot de passe incorrect'
+                    message: 'Mot de passe ou email incorrect.'
                 })
             }
         })

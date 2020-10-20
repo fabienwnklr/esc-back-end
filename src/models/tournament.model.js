@@ -12,7 +12,8 @@ module.exports = (sequelize, Sequelize) => {
         },
         nb_participant: {
             type: Sequelize.INTEGER(3),
-            allowNull: false
+            defaultValue: 1,
+            allowNull: true
         },
         author: {
             type: Sequelize.STRING(255),
