@@ -4,30 +4,28 @@ const Tournament = db.tournaments;
 const { Op } = require('sequelize');
 
 exports.create = (req, res) => {
-    console.log(req.body);
-    console.log(req.params);
-    if (!req.body) {
-        res.status(400).json({
-            message: 'Veuillez remplir tous les champs.'
-        });
-        return;
-    }
-
     const newTournament = {
         name: req.body.name,
         start_date: req.body.start_date,
         author: req.body.author,
         // nb_participants: req.body.nb_participants,
-        user: {
-            id: req.params.user_id
-        },
-        game: {
-            id: req.body.game
-        },
-        platform: {
-            id: req.body.platform
-        }
+        // user: {
+        //     id: req.body.user_id
+        // },
+        // game: {
+        //     id: req.body.game
+        // },
+        // platform: {
+        //     id: req.body.platform
+        // }
     };
+    console.log(newTournament)
+    if (!newTournament.name || !newTournament.start_date || !newTournament.author) {
+        res.status(400).json({
+            message: 'Veuillez remplir tous les champs.'
+        });
+        return;
+    }
 
     Tournament.create(newTournament)
         .then(data => {
