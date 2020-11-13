@@ -56,7 +56,7 @@ exports.login = (req, res) => {
                     email: userFind.email,
                     is_admin: userFind.is_admin
                 }
-                jwt.sign({ user: userLogged }, 'secretkey', { expiresIn: '15min' }, (err, token) => {
+                jwt.sign({ user: userLogged }, 'secretkey', { expiresIn: '7d' }, (err, token) => {
                     if (err) res.json(err)
                     res.send({ auth: true, token: token, user: userLogged }).status(200)
                 })

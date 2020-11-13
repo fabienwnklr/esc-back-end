@@ -8,7 +8,7 @@ module.exports = (sequelize, Sequelize) => {
         start_date: {
             type: Sequelize.STRING(255),
             allowNull: false,
-            unique: true
+            unique: false
         },
         nb_participant: {
             type: Sequelize.INTEGER(3),

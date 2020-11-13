@@ -29,7 +29,9 @@ exports.create = (req, res) => {
 
     Tournament.create(newTournament)
         .then(data => {
-            res.send(data)
+            res.status(200).send({
+                message: 'Tournoi créé avec succès !'
+            });
         })
         .catch(error => {
             res.status(500).send({
