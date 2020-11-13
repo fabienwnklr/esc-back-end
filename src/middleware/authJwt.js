@@ -27,7 +27,7 @@ module.exports.verifyToken = (req, res, next) => {
                 next()
             })
         } else {
-            res.send({
+            res.status(403).send({
                 message: `No token provided ${req.headers}`
             })
         }
