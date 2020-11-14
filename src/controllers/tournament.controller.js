@@ -30,12 +30,14 @@ exports.create = (req, res) => {
     Tournament.create(newTournament)
         .then(data => {
             res.status(200).send({
-                message: 'Tournoi créé avec succès !'
+                message: 'Tournoi créé avec succès !',
+                data
             });
         })
         .catch(error => {
             res.status(500).send({
-                message: error.message || 'Une erreur est survenue lors de la création du tournoi.'
+                errorThrow: error,
+                message: 'Une erreur est survenue lors de la création du tournoi.'
             });
         });
 };

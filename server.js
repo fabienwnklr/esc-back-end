@@ -30,9 +30,10 @@ app.get('/api/checkToken', authJwt.verifyToken, (req, res) => {
     })
 })
 require('./src/routes/auth.routes')(app);
-require('./src/routes/tournament.routes')(app); 
+require('./src/routes/tournament.routes')(app);
+require('./src/routes/games.routes')(app);
 
-db.sequelize.sync().then(() => {
+db.sequelize.sync({ force: false }).then(() => {
     console.log('Re-sync db.');
     app.listen(port, () => {
         console.log(`Example app listening at http://localhost:${port}`);
