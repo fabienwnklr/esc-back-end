@@ -61,7 +61,7 @@ exports.findOne = (req, res) => {
         })
         .catch(err => {
             res.status(500).send({
-                message: `Error retrieving Tournament with id= ${id}`
+                message: `Erreur de récupération du tournoi pour id = ${id}`
             });
         });
 };
