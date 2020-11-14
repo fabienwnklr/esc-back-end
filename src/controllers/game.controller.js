@@ -61,14 +61,15 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
     const id = req.params.id;
     console.log(req.body);
-    
+
     Game.update(req.body, {
         where: { id: id }
     })
         .then(num => {
-            if (num == 1) {
-                res.send({
-                    message: 'Game was updated successfully.'
+            if (num === 1) {
+                res.status(200).send({
+                   message: 'Modification enregistré',
+                   data
                 });
             } else {
                 res.send({
@@ -78,7 +79,8 @@ exports.update = (req, res) => {
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error updating Game with id=" + id
+                errorThrow: err,
+                message: `Erreur inconnu lors de la modification`
             });
         });
 };
