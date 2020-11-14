@@ -5,6 +5,14 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING(255),
             allowNull: false
         },
+        createdBy : {
+            type: Sequelize.STRING(255),
+            allowNull: false
+        },
+        updatedBy : {
+            type: Sequelize.STRING(255),
+            allowNull: true
+        },
         createdAt: {
             type: Sequelize.DATE,
             defaultValue: sequelize.literal('NOW()'),
