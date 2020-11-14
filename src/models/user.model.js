@@ -1,6 +1,14 @@
 module.exports = (sequelize, Sequelize) => {
     const User = sequelize.define('Users', {
         // Model attributes are defined here
+        // firstname: {
+        //     type: Sequelize.STRING(255),
+        //     allowNull: true
+        // },
+        // lastname: {
+        //     type: Sequelize.STRING(255),
+        //     allowNull: true
+        // },
         username: {
             type: Sequelize.STRING(255),
             allowNull: false

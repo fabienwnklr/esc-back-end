@@ -7,7 +7,7 @@ module.exports = (sequelize, Sequelize) => {
         },
         imgUrl: {
             type: Sequelize.STRING(255),
-            allowNull: false
+            allowNull: true
         },
         author: {
             type: Sequelize.STRING(255),

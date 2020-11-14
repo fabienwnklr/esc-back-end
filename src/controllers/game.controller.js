@@ -9,7 +9,7 @@ exports.create = (req, res) => {
         imgUrl: req.body.imgUrl,
         author: req.body.author,
     };
-    if (!newGame.name || !newGame.start_date || !newGame.author) {
+    if (!newGame.name) {
         res.status(400).json({
             message: 'Veuillez remplir tous les champs.'
         });
@@ -60,7 +60,8 @@ exports.findOne = (req, res) => {
 
 exports.update = (req, res) => {
     const id = req.params.id;
-
+    console.log(req.body);
+    
     Game.update(req.body, {
         where: { id: id }
     })
