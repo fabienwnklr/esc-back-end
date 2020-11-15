@@ -15,7 +15,7 @@ module.exports = (sequelize, Sequelize) => {
             defaultValue: 1,
             allowNull: true
         },
-        author: {
+        createdBy: {
             type: Sequelize.STRING(255),
             allowNull: false
         },
@@ -24,10 +24,14 @@ module.exports = (sequelize, Sequelize) => {
             defaultValue: sequelize.literal('NOW()'),
             allowNull: false
         },
+        updatedBy: {
+            type: Sequelize.STRING(255),
+            allowNull: true
+        },
         updatedAt: {
             type: Sequelize.DATE,
             defaultValue: sequelize.literal('NOW()'),
-            allowNull: false
+            allowNull: true
         }
     });
 

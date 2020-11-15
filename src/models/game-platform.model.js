@@ -19,16 +19,6 @@ module.exports = (sequelize, Sequelize) => {
                 // This is the column name of the referenced model
                 key: 'id',
             }
-        },
-        createdAt: {
-            type: Sequelize.DATE,
-            defaultValue: sequelize.literal('NOW()'),
-            allowNull: false
-        },
-        updatedAt: {
-            type: Sequelize.DATE,
-            defaultValue: sequelize.literal('NOW()'),
-            allowNull: false
         }
     });
 

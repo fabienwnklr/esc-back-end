@@ -25,7 +25,7 @@ module.exports = (sequelize, Sequelize) => {
         updatedAt: {
             type: Sequelize.DATE,
             defaultValue: sequelize.literal('NOW()'),
-            allowNull: false
+            allowNull: true
         }
     });
     return Game;
