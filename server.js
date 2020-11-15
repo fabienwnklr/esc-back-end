@@ -33,6 +33,7 @@ require('./src/routes/auth.routes')(app);
 require('./src/routes/tournament.routes')(app);
 require('./src/routes/game.routes')(app);
 require('./src/routes/platform.routes')(app);
+require('./src/routes/user.routes')(app);
 
 db.sequelize.sync({ force: false }).then(() => {
     console.log('Re-sync db.');

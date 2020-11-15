@@ -1,41 +1,12 @@
 const db = require('../models');
 const { Sequelize } = require('../models');
-const Game = db.games;
+const User = db.users;
 const { Op } = require('sequelize');
 
-exports.create = (req, res) => {
-    const newGame = {
-        name: req.body.name,
-        imgUrl: req.body.imgUrl,
-        createdBy: req.body.createdBy,
-    };
-    if (!newGame.name) {
-        res.status(400).json({
-            message: 'Veuillez remplir tous les champs.'
-        });
-        return;
-    }
-
-    Game.create(newGame)
-        .then(data => {
-            Game.findByPk(data.id).then(gameAdded => {
-                res.status(200).send({
-                    message: 'Jeu créé avec succès !',
-                    values: gameAdded.dataValues
-                });
-            });
-        })
-        .catch(error => {
-            res.status(500).send({
-                errorThrow: error,
-                message: 'Une erreur est survenue lors de la création du jeu.'
-            });
-        });
-};
-
 exports.findAll = (req, res) => {
-    Game.findAll()
+    User.findAll()
         .then(data => {
+            console.log(data)
             res.send(data);
         })
         .catch(err => {
@@ -49,13 +20,13 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
-    Game.findByPk(id)
+    User.findByPk(id)
         .then(data => {
             res.send(data);
         })
         .catch(err => {
             res.status(500).send({
-                message: `Erreur de récupération du jeu pour id = ${id}`
+                message: `Erreur de récupération de l'utilisateur pour id = ${id}`
             });
         });
 };
@@ -64,7 +35,7 @@ exports.update = (req, res) => {
     const id = req.params.id;
     const values = req.body;
 
-    Game.update(values, {
+    User.update(values, {
         where: { id: id }
     })
         .then((num) => {
@@ -87,7 +58,7 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
     const id = req.params.id;
 
-    Game.destroy({
+    User.destroy({
         where: { id: id }
     })
         .then(num => {
@@ -103,18 +74,18 @@ exports.delete = (req, res) => {
         })
         .catch(err => {
             res.status(500).send({
-                message: "Could not delete Game with id=" + id
+                message: "Could not delete User with id=" + id
             });
         });
 };
 
 exports.deleteAll = (req, res) => {
-    Game.destroy({
+    User.destroy({
         where: {},
         truncate: false
     })
         .then(nums => {
-            res.send({ message: `${nums} Tutorials were deleted successfully!` });
+            res.send({ message: `${nums} User ont étaient supprimés !` });
         })
         .catch(err => {
             res.status(500).send({
