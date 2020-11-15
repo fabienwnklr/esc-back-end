@@ -7,7 +7,7 @@ exports.create = (req, res) => {
     const newTournament = {
         name: req.body.name,
         start_date: req.body.start_date,
-        author: req.body.author,
+        createdBy: req.body.createdBy,
         // nb_participants: req.body.nb_participants,
         // user: {
         //     id: req.body.user_id
@@ -20,7 +20,7 @@ exports.create = (req, res) => {
         // }
     };
     console.log(newTournament)
-    if (!newTournament.name || !newTournament.start_date || !newTournament.author) {
+    if (!newTournament.name || !newTournament.start_date || !newTournament.createdBy) {
         res.status(400).json({
             message: 'Veuillez remplir tous les champs.'
         });

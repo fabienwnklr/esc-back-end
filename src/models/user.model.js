@@ -32,7 +32,7 @@ module.exports = (sequelize, Sequelize) => {
         },
         createdBy: {
             type: Sequelize.STRING(255),
-            allowNull: false
+            allowNull: true
         },
         createdAt: {
             type: Sequelize.DATE,
