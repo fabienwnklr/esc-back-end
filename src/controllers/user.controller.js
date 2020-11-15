@@ -22,7 +22,12 @@ exports.findOne = (req, res) => {
 
     User.findByPk(id)
         .then(data => {
-            res.send(data);
+            if (!data) {
+                res.status(400).send({
+                    message: 'Utilisateur inexistant.'
+                })
+            }
+            res.status(200).send(data);
         })
         .catch(err => {
             res.status(500).send({
