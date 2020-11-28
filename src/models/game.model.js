@@ -29,13 +29,5 @@ module.exports = (sequelize, Sequelize) => {
         }
     }, { freezeTableName: true });
 
-    Game.associate = models => {
-        Game.belongsTo(models.Tournaments, {
-            foreignKey: {
-                allowNull: false
-            }
-        })
-    }
-
     return Game;
 }

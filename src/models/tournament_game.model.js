@@ -15,7 +15,7 @@ module.exports = (sequelize, Sequelize) => {
             allNull: false,
             references: {
                 // This is a reference to another model
-                model: 'tournaments',
+                model: 'tournament',
                 // This is the column name of the referenced model
                 key: 'id',
 

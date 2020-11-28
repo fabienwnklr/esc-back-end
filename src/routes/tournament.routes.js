@@ -1,18 +1,18 @@
 const authMiddleware = require('../middleware/authJwt.js');
 
 module.exports = app => {
-    const tournaments = require('../controllers/tournament.controller');
+    const tournament = require('../controllers/tournament.controller');
     const router = require('express').Router();
 
-    router.post('/create', authMiddleware.verifyToken ,tournaments.create);
+    router.post('/create', authMiddleware.verifyToken ,tournament.create);
 
-    router.get('/', tournaments.findAll);
+    router.get('/', tournament.findAll);
 
-    router.get('/:id', tournaments.findOne);
+    router.get('/:id', tournament.findOne);
 
-    router.put('/:id', tournaments.update);
+    router.put('/:id', tournament.update);
 
-    router.delete('/:id', tournaments.delete);
+    router.delete('/:id', tournament.delete);
 
-    app.use('/api/tournaments', router);
+    app.use('/api/tournament', router);
 }

@@ -34,18 +34,6 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: true
         }
     }, { freezeTableName: true });
-
-    Tournament.associate= models => {
-        Tournament.hasOne(models.Game, {
-            onDelete: 'cascade'
-        })
-    }
-
-    Tournament.associate= models => {
-        Tournament.hasMany(models.Platform, {
-            onDelete: 'cascade'
-        })
-    }
-
+    
     return Tournament;
 }
