@@ -1,6 +1,6 @@
 const db = require('../models');
 const { Sequelize } = require('../models');
-const Platform = db.platforms;
+const Platform = db.platform;
 const { Op } = require('sequelize');
 
 exports.create = (req, res) => {

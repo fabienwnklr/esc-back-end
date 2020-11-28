@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const User = sequelize.define('Users', {
+    const User = sequelize.define('User', {
         // Model attributes are defined here
         // firstname: {
         //     type: Sequelize.STRING(255),
@@ -48,7 +48,7 @@ module.exports = (sequelize, Sequelize) => {
             defaultValue: sequelize.literal('NOW()'),
             allowNull: true
         }
-    });
+    }, { freezeTableName: true });
 
     return User;
 }

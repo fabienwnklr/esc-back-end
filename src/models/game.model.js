@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const Game = sequelize.define('Games', {
+    const Game = sequelize.define('Game', {
         // Model attributes are defined here
         name: {
             type: Sequelize.STRING(255),
@@ -27,6 +27,15 @@ module.exports = (sequelize, Sequelize) => {
             defaultValue: sequelize.literal('NOW()'),
             allowNull: true
         }
-    });
+    }, { freezeTableName: true });
+
+    Game.associate = models => {
+        Game.belongsTo(models.Tournaments, {
+            foreignKey: {
+                allowNull: false
+            }
+        })
+    }
+
     return Game;
 }

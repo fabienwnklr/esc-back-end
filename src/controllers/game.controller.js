@@ -1,6 +1,6 @@
 const db = require('../models');
 const { Sequelize } = require('../models');
-const Game = db.games;
+const Game = db.game;
 const { Op } = require('sequelize');
 
 exports.create = (req, res) => {

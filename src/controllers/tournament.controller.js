@@ -1,6 +1,6 @@
 const db = require('../models');
 const { Sequelize } = require('../models');
-const Tournament = db.tournaments;
+const Tournament = db.tournament;
 const { Op } = require('sequelize');
 
 exports.create = (req, res) => {
@@ -8,6 +8,7 @@ exports.create = (req, res) => {
         name: req.body.name,
         start_date: req.body.start_date,
         createdBy: req.body.createdBy,
+        gameId: req.body.game
         // nb_participants: req.body.nb_participants,
         // user: {
         //     id: req.body.user_id

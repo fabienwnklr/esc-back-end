@@ -1,6 +1,6 @@
 
 module.exports = (sequelize, Sequelize) => {
-    const TournamentPlatforms = sequelize.define('Tournament_platforms', {
+    const TournamentPlatform = sequelize.define('Tournament_platform', {
         tournament_id: {
             type: Sequelize.INTEGER,
             allowNull: false,
@@ -16,11 +16,11 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.INTEGER,
             allowNull: false,
             references: {
-                model: 'platforms',
+                model: 'platform',
                 key: 'id',
             }
         }
     });
 
-    return TournamentPlatforms;
+    return TournamentPlatform;
 }

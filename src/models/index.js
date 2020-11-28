@@ -11,16 +11,16 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 // Tables principales
-db.users = require('./user.model')(sequelize, Sequelize);
-db.tournaments = require('./tournament.model')(sequelize, Sequelize);
-db.platforms = require('./platform.model')(sequelize, Sequelize);
-db.games = require('./game.model')(sequelize, Sequelize);
-db.teams = require('./team.model')(sequelize, Sequelize);
+db.user = require('./user.model')(sequelize, Sequelize);
+db.tournament = require('./tournament.model')(sequelize, Sequelize);
+db.platform = require('./platform.model')(sequelize, Sequelize);
+db.game = require('./game.model')(sequelize, Sequelize);
+db.team = require('./team.model')(sequelize, Sequelize);
 
 // Tables intermédiaires
-db.user_tournaments = require('./user_tournament.model')(sequelize, Sequelize);
-db.tournament_platforms = require('./tournament_platforms.model')(sequelize, Sequelize);
-db.tournament_games = require('./tournament_games.model')(sequelize, Sequelize);
-db.game_platforms = require('./game-platform.model')(sequelize, Sequelize);
+// db.user_tournament = require('./user_tournament.model')(sequelize, Sequelize);
+// db.tournament_platform = require('./tournament_platform.model')(sequelize, Sequelize);
+// db.tournament_game = require('./tournament_game.model')(sequelize, Sequelize);
+// db.game_platform = require('./game_platform.model')(sequelize, Sequelize);
 
 module.exports = db;

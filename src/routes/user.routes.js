@@ -1,16 +1,16 @@
 const authMiddleware = require('../middleware/authJwt.js');
 
 module.exports = app => {
-    const users = require('../controllers/user.controller');
+    const user = require('../controllers/user.controller');
     const router = require('express').Router();
 
-    router.get('/', users.findAll);
+    router.get('/', user.findAll);
 
-    router.get('/:id', users.findOne);
+    router.get('/:id', user.findOne);
 
-    router.put('/:id', users.update);
+    router.put('/:id', user.update);
 
-    router.delete('/:id', users.delete);
+    router.delete('/:id', user.delete);
 
-    app.use('/api/users', router);
+    app.use('/api/user', router);
 }

@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const Tournament = sequelize.define('Tournaments', {
+    const Tournament = sequelize.define('Tournament', {
         // Model attributes are defined here
         name: {
             type: Sequelize.STRING(255),
@@ -33,7 +33,19 @@ module.exports = (sequelize, Sequelize) => {
             defaultValue: sequelize.literal('NOW()'),
             allowNull: true
         }
-    });
+    }, { freezeTableName: true });
+
+    Tournament.associate= models => {
+        Tournament.hasOne(models.Game, {
+            onDelete: 'cascade'
+        })
+    }
+
+    Tournament.associate= models => {
+        Tournament.hasMany(models.Platform, {
+            onDelete: 'cascade'
+        })
+    }
 
     return Tournament;
 }

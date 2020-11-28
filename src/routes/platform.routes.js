@@ -1,18 +1,18 @@
 const authMiddleware = require('../middleware/authJwt.js');
 
 module.exports = app => {
-    const games = require('../controllers/platform.controller');
+    const platform = require('../controllers/platform.controller');
     const router = require('express').Router();
 
-    router.post('/create', authMiddleware.verifyToken ,games.create);
+    router.post('/create', authMiddleware.verifyToken ,platform.create);
 
-    router.get('/', games.findAll);
+    router.get('/', platform.findAll);
 
-    router.get('/:id', games.findOne);
+    router.get('/:id', platform.findOne);
 
-    router.put('/:id', games.update);
+    router.put('/:id', platform.update);
 
-    router.delete('/:id', games.delete);
+    router.delete('/:id', platform.delete);
 
-    app.use('/api/platforms', router);
+    app.use('/api/platform', router);
 }

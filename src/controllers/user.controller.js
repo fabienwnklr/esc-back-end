@@ -1,6 +1,6 @@
 const db = require('../models');
 const { Sequelize } = require('../models');
-const User = db.users;
+const User = db.user;
 const { Op } = require('sequelize');
 
 exports.findAll = (req, res) => {

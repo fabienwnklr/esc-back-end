@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const Team = sequelize.define('Teams', {
+    const Team = sequelize.define('Team', {
         name: {
             type: Sequelize.STRING(255),
             allowNull: false,
@@ -7,7 +7,7 @@ module.exports = (sequelize, Sequelize) => {
         adminId: {
             type: Sequelize.INTEGER,
             references: {
-                model: 'users',
+                model: 'user',
                 key: 'id'
             },
             allowNull: false
@@ -30,7 +30,7 @@ module.exports = (sequelize, Sequelize) => {
             defaultValue: sequelize.literal('NOW()'),
             allowNull: true
         }
-    });
+    }, { freezeTableName: true });
 
     return Team;
 }

@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const Platform = sequelize.define('Platforms', {
+    const Platform = sequelize.define('Platform', {
         // Model attributes are defined here
         name: {
             type: Sequelize.STRING(255),
@@ -23,7 +23,7 @@ module.exports = (sequelize, Sequelize) => {
             defaultValue: sequelize.literal('NOW()'),
             allowNull: true
         }
-    });
+    }, { freezeTableName: true });
 
     return Platform;
 }
