@@ -37,7 +37,7 @@ module.exports = (sequelize, Sequelize) => {
         createdAt: {
             type: Sequelize.DATE,
             defaultValue: sequelize.literal('NOW()'),
-            allowNull: false
+            allowNull: true
         },
         updatedBy: {
             type: Sequelize.STRING(255),

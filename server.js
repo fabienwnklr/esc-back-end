@@ -35,10 +35,10 @@ require('./src/routes/game.routes')(app);
 require('./src/routes/platform.routes')(app);
 require('./src/routes/user.routes')(app);
 
-db.sequelize.sync({ force: false }).then(() => {
+db.sequelize.sync({ alter: true }).then(() => {
     console.log('Re-sync db.');
     app.listen(port, () => {
-        console.log(`Example app listening at http://localhost:${port}`);
+        console.log(`API run at http://localhost:${port}`);
     });
 });
 

@@ -4,12 +4,13 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING(255),
             allowNull: false,
         },
-        admin: {
+        adminId: {
             type: Sequelize.INTEGER,
             references: {
                 model: 'users',
                 key: 'id'
-            }
+            },
+            allowNull: false
         },
         createdBy: {
             type: Sequelize.STRING(255),

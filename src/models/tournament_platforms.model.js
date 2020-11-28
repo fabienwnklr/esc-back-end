@@ -1,18 +1,9 @@
+
 module.exports = (sequelize, Sequelize) => {
-    const GameTournament = sequelize.define('Game_tournaments', {
-        game_id: {
-            type: Sequelize.INTEGER,
-            allNull: false,
-            references: {
-                // This is a reference to another model
-                model: 'games',
-                // This is the column name of the referenced model
-                key: 'id',
-            }
-        },
+    const TournamentPlatforms = sequelize.define('Tournament_platforms', {
         tournament_id: {
             type: Sequelize.INTEGER,
-            allNull: false,
+            allowNull: false,
             references: {
                 // This is a reference to another model
                 model: 'tournaments',
@@ -20,8 +11,16 @@ module.exports = (sequelize, Sequelize) => {
                 key: 'id',
 
             }
+        },
+        platform_id: {
+            type: Sequelize.INTEGER,
+            allowNull: false,
+            references: {
+                model: 'platforms',
+                key: 'id',
+            }
         }
     });
 
-    return GameTournament;
+    return TournamentPlatforms;
 }
