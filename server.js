@@ -1,4 +1,5 @@
 require('dotenv').config();
+require('./src/utils/logger');
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -15,6 +16,7 @@ app.use(express.json({
     type: ['application/json', 'text/plain']
 }));
 
+require('./src/utils/logger');
 
 // ** Security
 app.use(helmet());
