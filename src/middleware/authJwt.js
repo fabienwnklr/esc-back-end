@@ -15,11 +15,11 @@ module.exports.verifyToken = (req, res, next) => {
                 if (err) {
                     if (err instanceof jwt.TokenExpiredError) {
                         res.status(401).send({
-                            message: 'Connexion expirée'
+                            message: 'Connection timed out'
                         })
                     } else {
                         res.status(401).send({
-                            message: 'Token invalide'
+                            message: 'Invalid token'
                         })
                     }
                 }
@@ -32,6 +32,9 @@ module.exports.verifyToken = (req, res, next) => {
             })
         }
     } catch (err) {
-        console.error(`An error occurred ${err}`)
+        res.status(401).send({
+            errorThrow: err,
+            error: new Error(`Invalid request`)
+        })
     }
 };

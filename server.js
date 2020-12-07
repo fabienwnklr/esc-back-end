@@ -16,8 +16,6 @@ app.use(express.json({
     type: ['application/json', 'text/plain']
 }));
 
-require('./src/utils/logger');
-
 // ** Security
 app.use(helmet());
 
@@ -28,7 +26,7 @@ const db = require('./src/models');
 // ? Routes
 app.get('/api/checkToken', authJwt.verifyToken, (req, res) => {
     res.status(200).send({
-        message: 'token valid'
+        message: 'Valid token'
     })
 })
 require('./src/routes/auth.routes')(app);

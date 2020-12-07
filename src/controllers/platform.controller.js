@@ -11,7 +11,7 @@ exports.create = (req, res) => {
     };
     if (!newPlatform.name) {
         res.status(400).json({
-            message: 'Veuillez remplir tous les champs.'
+            message: 'Please fill in all the fields'
         });
         return;
     }
@@ -20,7 +20,7 @@ exports.create = (req, res) => {
         .then(data => {
             Platform.findByPk(data.id).then(platformAdded => {
                 res.status(200).send({
-                    message: 'Plateforme créée avec succès !',
+                    message: 'Platform created successfully',
                     values: platformAdded.dataValues
                 });
             });
@@ -28,7 +28,7 @@ exports.create = (req, res) => {
         .catch(error => {
             res.status(500).send({
                 errorThrow: error,
-                message: 'Une erreur est survenue lors de la création de la plateforme.'
+                message: 'An error occured durgin Platform creation'
             });
         });
 };
@@ -38,10 +38,10 @@ exports.findAll = (req, res) => {
         .then(data => {
             res.send(data);
         })
-        .catch(err => {
+        .catch(error => {
             res.status(500).send({
-                errorThrow: err.message,
-                message: 'Erreur lors de la récupération des plateformes.'
+                errorThrow: error,
+                message: 'An error occured durgin retrieving platform\'s data'
             });
         });
 };
@@ -54,8 +54,9 @@ exports.findOne = (req, res) => {
             res.send(data);
         })
         .catch(err => {
-            res.status(500).send({
-                message: `Erreur de récupération de la plateforme pour id = ${id}`
+            res.status(401).send({
+                errorThrow: err,
+                message: `An error occured when retrieving platform data for id = ${id}`
             });
         });
 };
@@ -72,14 +73,14 @@ exports.update = (req, res) => {
             if (num) {
                 res.status(200).send({
                     values,
-                    message: 'Modification(s) enregistrée(s)'
+                    message: 'Saved change(s)'
                 })
             }
         })
-        .catch(err => {
+        .catch(error => {
             res.status(500).send({
-                errorThrow: err,
-                message: `Erreur inconnu lors de la modification`
+                errorThrow: error,
+                message: `An error occured during the modification(s)`
             });
         });
 };
@@ -93,16 +94,17 @@ exports.delete = (req, res) => {
         .then(num => {
             if (num === 1) {
                 res.send({
-                    message: 'Supression enregistrée'
+                    message: 'Platform removed'
                 });
             } else {
                 res.send({
-                    message: `Impossible de supprimer la plateforme pour id = ${id}`
+                    message: `Could not delete Platform with id = ${id}, maybe already removed`
                 });
             }
         })
-        .catch(err => {
-            res.status(500).send({
+        .catch(error => {
+            res.status(401).send({
+                errorThrow: error,
                 message: "Could not delete Platform with id=" + id
             });
         });
@@ -114,12 +116,12 @@ exports.deleteAll = (req, res) => {
         truncate: false
     })
         .then(nums => {
-            res.send({ message: `${nums} Tutorials were deleted successfully!` });
+            res.send({ message: `${nums} Platforms were deleted successfully` });
         })
-        .catch(err => {
-            res.status(500).send({
-                message:
-                    err.message || "Some error occurred while removing all tutorials."
+        .catch(error => {
+            res.status(401).send({
+                errorThrow: error,
+                message: "Some error occurred while removing all Platforms."
             });
         });
 };

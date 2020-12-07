@@ -26,10 +26,6 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.BOOLEAN,
             defaultValue: false
         },
-        team_id: {
-            type: Sequelize.INTEGER(11),
-            unique: true
-        },
         createdBy: {
             type: Sequelize.STRING(255),
             allowNull: true
@@ -49,6 +45,10 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: true
         }
     }, { freezeTableName: true });
+
+    User.belongsToMany(sequelize.models.Tournament, {
+        through: 'user_tournament'
+    })
 
     return User;
 }

@@ -25,7 +25,8 @@ exports.findOne = (req, res) => {
             if (!data) {
                 res.status(400).send({
                     message: 'Utilisateur inexistant.'
-                })
+                });
+                return;
             }
             res.status(200).send(data);
         })

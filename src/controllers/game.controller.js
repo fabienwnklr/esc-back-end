@@ -11,7 +11,7 @@ exports.create = (req, res) => {
     };
     if (!newGame.name) {
         res.status(400).json({
-            message: 'Veuillez remplir tous les champs.'
+            message: 'Please fill in all the fields'
         });
         return;
     }
@@ -20,7 +20,7 @@ exports.create = (req, res) => {
         .then(data => {
             Game.findByPk(data.id).then(gameAdded => {
                 res.status(200).send({
-                    message: 'Jeu créé avec succès !',
+                    message: 'Game created successfully',
                     values: gameAdded.dataValues
                 });
             });
@@ -28,7 +28,7 @@ exports.create = (req, res) => {
         .catch(error => {
             res.status(500).send({
                 errorThrow: error,
-                message: 'Une erreur est survenue lors de la création du jeu.'
+                message: 'An error occured during creation'
             });
         });
 };
@@ -41,7 +41,7 @@ exports.findAll = (req, res) => {
         .catch(err => {
             res.status(500).send({
                 errorThrow: err.message,
-                message: 'Erreur lors de la récupération des jeux.'
+                message: 'An error occured during retrieving data'
             });
         });
 };
@@ -55,7 +55,7 @@ exports.findOne = (req, res) => {
         })
         .catch(err => {
             res.status(500).send({
-                message: `Erreur de récupération du jeu pour id = ${id}`
+                message: `An error occured when retrieving game data for id = ${id}`
             });
         });
 };
@@ -72,14 +72,14 @@ exports.update = (req, res) => {
             if (num) {
                 res.status(200).send({
                     values,
-                    message: 'Modification(s) enregistrée(s)'
+                    message: 'Saved change(s)'
                 })
             }
         })
         .catch(err => {
             res.status(500).send({
                 errorThrow: err,
-                message: `Erreur inconnu lors de la modification`
+                message: `An error occured during the modification(s)`
             });
         });
 };
@@ -93,33 +93,33 @@ exports.delete = (req, res) => {
         .then(num => {
             if (num === 1) {
                 res.send({
-                    message: 'Supression enregistrée'
+                    message: 'Game removed'
                 });
             } else {
                 res.send({
-                    message: `Impossible de supprimer le jeu pour id = ${id}`
+                    message: `Could not delete Game with id = ${id}, maybe already removed`
                 });
             }
         })
         .catch(err => {
-            res.status(500).send({
-                message: "Could not delete Game with id=" + id
+            res.status(401).send({
+                errorThrow: err,
+                message: `Could not delete Game with id = ${id}`
             });
         });
 };
 
 exports.deleteAll = (req, res) => {
     Game.destroy({
-        where: {},
         truncate: false
     })
         .then(nums => {
             res.send({ message: `${nums} Tutorials were deleted successfully!` });
         })
         .catch(err => {
-            res.status(500).send({
-                message:
-                    err.message || "Some error occurred while removing all tutorials."
+            res.status(401).send({
+                errorThrow: err,
+                message: "Some error occurred while removing all tutorials."
             });
         });
 };

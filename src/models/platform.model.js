@@ -25,5 +25,9 @@ module.exports = (sequelize, Sequelize) => {
         }
     }, { freezeTableName: true });
 
+    Platform.belongsToMany(sequelize.models.Game, {
+        through: 'platform_game'
+    })
+
     return Platform;
 }
