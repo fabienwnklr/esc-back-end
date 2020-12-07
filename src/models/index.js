@@ -15,5 +15,7 @@ db.game = require('./game.model')(sequelize, Sequelize);
 db.platform = require('./platform.model')(sequelize, Sequelize);
 db.tournament = require('./tournament.model')(sequelize, Sequelize);
 db.user = require('./user.model')(sequelize, Sequelize);
+// Table associative
+db.associate = require('./associate')(sequelize);
 
 module.exports = db;

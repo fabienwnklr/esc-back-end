@@ -1,14 +1,14 @@
 module.exports = (sequelize, Sequelize) => {
     const User = sequelize.define('User', {
         // Model attributes are defined here
-        // firstname: {
-        //     type: Sequelize.STRING(255),
-        //     allowNull: true
-        // },
-        // lastname: {
-        //     type: Sequelize.STRING(255),
-        //     allowNull: true
-        // },
+        firstname: {
+            type: Sequelize.STRING(255),
+            allowNull: true
+        },
+        lastname: {
+            type: Sequelize.STRING(255),
+            allowNull: true
+        },
         username: {
             type: Sequelize.STRING(255),
             allowNull: false
@@ -45,10 +45,6 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: true
         }
     }, { freezeTableName: true });
-
-    User.belongsToMany(sequelize.models.Tournament, {
-        through: 'user_tournament'
-    })
 
     return User;
 }

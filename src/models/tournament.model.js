@@ -34,13 +34,6 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: true
         }
     }, { freezeTableName: true });
-
-    Tournament.belongsToMany(sequelize.models.Game, {
-        through: 'tournament_game'
-    })
-    Tournament.belongsToMany(sequelize.models.Platform, {
-        through: 'tournament_platform'
-    })
     
     return Tournament;
 }

@@ -21,6 +21,7 @@ app.use(helmet());
 
 // *Models
 const db = require('./src/models');
+const { sequelize } = require('./src/models');
 
 
 // ? Routes
@@ -30,12 +31,12 @@ app.get('/api/checkToken', authJwt.verifyToken, (req, res) => {
     })
 })
 require('./src/routes/auth.routes')(app);
-require('./src/routes/tournament.routes')(app);
-require('./src/routes/game.routes')(app);
-require('./src/routes/platform.routes')(app);
 require('./src/routes/user.routes')(app);
+require('./src/routes/platform.routes')(app);
+require('./src/routes/game.routes')(app);
+require('./src/routes/tournament.routes')(app);
 
-db.sequelize.sync({ alter: false }).then(() => {
+db.sequelize.sync({ force: true }).then(() => {
     console.log('Re-sync db.');
     app.listen(port, () => {
         console.log(`API run at http://localhost:${port}`);

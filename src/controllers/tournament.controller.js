@@ -1,14 +1,15 @@
 const db = require('../models');
-const { Sequelize, sequelize } = require('../models');
+const User = db.user;
 const Tournament = db.tournament;
+const Game = db.game;
+const Platform = db.platform;
 const { Op } = require('sequelize');
 
-exports.create = (req, res) => {
+exports.create = async (req, res) => {
     const newTournament = {
         name: req.body.name,
         start_date: req.body.start_date,
         createdBy: req.body.createdBy,
-        gameId: req.body.game
         // nb_participants: req.body.nb_participants,
         // user: {
         //     id: req.body.user_id
@@ -20,27 +21,25 @@ exports.create = (req, res) => {
         //     id: req.body.platform
         // }
     };
-    console.log(newTournament)
     if (!newTournament.name || !newTournament.start_date || !newTournament.createdBy) {
         res.status(400).json({
             message: 'Veuillez remplir tous les champs.'
         });
         return;
     }
+    const tournamentCreated = await Tournament.create(newTournament);
+    const game = await Game.findByPk(req.body.game);
+    await tournamentCreated.addGame(game);
 
-    Tournament.create(newTournament)
-        .then(data => {
-            res.status(200).send({
-                message: 'Tournoi créé avec succès !',
-                data
-            });
-        })
-        .catch(error => {
-            res.status(500).send({
-                errorThrow: error,
-                message: 'Une erreur est survenue lors de la création du tournoi.'
-            });
-        });
+    const result = await Tournament.findOne({
+        where: {id: tournamentCreated.dataValues.id},
+        include: 'games'
+    })
+
+    res.status(200).send({
+        message: 'Tournament created successfully !',
+        result
+    });
 };
 
 exports.findAll = (req, res) => {
@@ -137,7 +136,7 @@ exports.findAllActive = (req, res) => {
     Tutorial.findAll({
         where: {
             start_date: {
-                [Op.gte]: Sequelize.literal('NOW()')
+                [Op.gte]: db.Sequelize.literal('NOW()')
             }
         }
     })
