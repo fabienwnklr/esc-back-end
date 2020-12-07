@@ -4,7 +4,7 @@ module.exports = (sequelize) => {
         as: 'games',
         foreignKey: 'tournament_id'
     });
-    sequelize.models.Game.belongsToMany(sequelize.models.Tournament, {
+    sequelize.models.Game.belongsTo(sequelize.models.Tournament, {
         through: 'tournament_game',
         as: 'tournaments',
         foreignKey: 'game_id'
@@ -16,7 +16,7 @@ module.exports = (sequelize) => {
         as: 'platforms',
         foreignKey: 'tournament_id'
     });
-    sequelize.models.Platform.belongsToMany(sequelize.models.Tournament, {
+    sequelize.models.Platform.belongsTo(sequelize.models.Tournament, {
         through: 'tournament_platform',
         as: 'tournaments',
         foreignKey: 'platform_id'
@@ -29,7 +29,7 @@ module.exports = (sequelize) => {
         foreignKey: 'game_id'
     });
 
-    sequelize.models.Platform.belongsToMany(sequelize.models.Game, {
+    sequelize.models.Platform.belongsTo(sequelize.models.Game, {
         through: 'platform_game',
         as: 'games',
         foreignKey: 'platform_id'
@@ -41,7 +41,7 @@ module.exports = (sequelize) => {
         as: 'tournaments',
         foreignKey: 'user_id'
     });
-    sequelize.models.Tournament.belongsToMany(sequelize.models.User, {
+    sequelize.models.Tournament.belongsTo(sequelize.models.User, {
         through: 'user_tournament',
         as: 'users',
         foreignKey: 'tournament_id'

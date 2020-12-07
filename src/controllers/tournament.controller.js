@@ -43,7 +43,7 @@ exports.create = async (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-    Tournament.findAll()
+    Tournament.findAll({include: 'games'})
         .then(data => {
             res.send(data);
         })
