@@ -36,14 +36,14 @@ module.exports = (sequelize) => {
     });
 
 
-    sequelize.models.User.belongsToMany(sequelize.models.Tournament, {
-        through: 'user_tournament',
-        as: 'tournaments',
-        foreignKey: 'user_id'
-    });
-    sequelize.models.Tournament.belongsTo(sequelize.models.User, {
+    sequelize.models.Tournament.belongsToMany(sequelize.models.User, {
         through: 'user_tournament',
         as: 'users',
         foreignKey: 'tournament_id'
+    });
+    sequelize.models.User.belongsTo(sequelize.models.Tournament, {
+        through: 'user_tournament',
+        as: 'tournaments',
+        foreignKey: 'user_id'
     });
 }

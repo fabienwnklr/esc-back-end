@@ -38,11 +38,11 @@ exports.create = async (req, res) => {
 
     await tournamentCreated.addGame(game);
     await tournamentCreated.addPlatforms(platforms);
-    // await tournamentCreated.addUsers(creator); ?? A voir
+    await tournamentCreated.addUsers(creator); // A voir
 
     const result = await Tournament.findOne({
         where: { id: tournamentCreated.dataValues.id },
-        include: ['games', 'platforms']
+        include: ['games', 'platforms', 'users']
     })
 
     res.status(200).send({
@@ -52,7 +52,19 @@ exports.create = async (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-    Tournament.findAll({ include: ['games', 'platforms'] })
+    Tournament.findAll({
+        include: [
+            {
+                model: Game, as: 'games', attributes: ['name']
+            },
+            {
+                model: Platform, as: 'platforms', attributes: ['name']
+            },
+            {
+                model: User, as: 'users', attributes: ['username']
+            }
+        ],
+    })
         .then(data => {
             res.send(data);
         })
