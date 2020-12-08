@@ -29,11 +29,20 @@ exports.create = async (req, res) => {
     }
     const tournamentCreated = await Tournament.create(newTournament);
     const game = await Game.findByPk(req.body.game);
+    const creator = await User.findByPk(req.body.authorId)
+    const platforms = await Platform.findAll({
+        where: {
+            id: req.body.platforms
+        }
+    });
+
     await tournamentCreated.addGame(game);
+    await tournamentCreated.addPlatforms(platforms);
+    // await tournamentCreated.addUsers(creator); ?? A voir
 
     const result = await Tournament.findOne({
-        where: {id: tournamentCreated.dataValues.id},
-        include: 'games'
+        where: { id: tournamentCreated.dataValues.id },
+        include: ['games', 'platforms']
     })
 
     res.status(200).send({
@@ -43,7 +52,7 @@ exports.create = async (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-    Tournament.findAll({include: 'games'})
+    Tournament.findAll({ include: ['games', 'platforms'] })
         .then(data => {
             res.send(data);
         })
