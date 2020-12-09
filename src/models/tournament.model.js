@@ -13,7 +13,7 @@ module.exports = (sequelize, Sequelize) => {
         nb_participant: {
             type: Sequelize.INTEGER(3),
             defaultValue: 1,
-            allowNull: true
+            allowNull: false
         },
         createdBy: {
             type: Sequelize.STRING(255),

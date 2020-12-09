@@ -10,7 +10,7 @@ exports.create = async (req, res) => {
         name: req.body.name,
         start_date: req.body.start_date,
         createdBy: req.body.createdBy,
-        // nb_participants: req.body.nb_participants,
+        nb_participant: req.body.nb_participant
         // user: {
         //     id: req.body.user_id
         // },
