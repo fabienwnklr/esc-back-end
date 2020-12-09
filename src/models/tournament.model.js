@@ -10,6 +10,10 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false,
             unique: false
         },
+        game_mode: {
+            type: Sequelize.STRING(55),
+            allowNull: false,
+        },
         nb_participant: {
             type: Sequelize.INTEGER(3),
             defaultValue: 1,
