@@ -15,6 +15,10 @@ module.exports = (sequelize, Sequelize) => {
             defaultValue: 1,
             allowNull: false
         },
+        details: {
+            type: Sequelize.TEXT,
+            allowNull: true,
+        },
         createdBy: {
             type: Sequelize.STRING(255),
             allowNull: false
