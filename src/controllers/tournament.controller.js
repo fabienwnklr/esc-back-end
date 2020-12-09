@@ -42,7 +42,17 @@ exports.create = async (req, res) => {
 
     const result = await Tournament.findOne({
         where: { id: tournamentCreated.dataValues.id },
-        include: ['games', 'platforms', 'users']
+        include: [
+            {
+                model: Game, as: 'games', attributes: ['name']
+            },
+            {
+                model: Platform, as: 'platforms', attributes: ['name']
+            },
+            {
+                model: User, as: 'users', attributes: ['username']
+            }
+        ],
     })
 
     res.status(200).send({
@@ -78,7 +88,19 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
-    Tournament.findByPk(id)
+    Tournament.findByPk(id, {
+        include: [
+            {
+                model: Game, as: 'games', attributes: ['name']
+            },
+            {
+                model: Platform, as: 'platforms', attributes: ['name']
+            },
+            {
+                model: User, as: 'users', attributes: ['username']
+            }
+        ],
+    })
         .then(data => {
             res.send(data);
         })

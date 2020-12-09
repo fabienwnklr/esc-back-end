@@ -4,7 +4,9 @@ const User = db.user;
 const { Op } = require('sequelize');
 
 exports.findAll = (req, res) => {
-    User.findAll()
+    User.findAll({
+        attributes: ['username', 'id', 'email']
+    })
         .then(data => {
             console.log(data)
             res.send(data);
@@ -20,7 +22,9 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
-    User.findByPk(id)
+    User.findByPk(id, {
+        attributes: ['username', 'id', 'email']
+    })
         .then(data => {
             if (!data) {
                 res.status(400).send({
