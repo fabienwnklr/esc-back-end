@@ -34,6 +34,7 @@ require('./src/routes/auth.routes')(app);
 require('./src/routes/user.routes')(app);
 require('./src/routes/platform.routes')(app);
 require('./src/routes/game.routes')(app);
+require('./src/routes/gamesMode.routes')(app);
 require('./src/routes/tournament.routes')(app);
 
 db.sequelize.sync({ alter: false }).then(() => {

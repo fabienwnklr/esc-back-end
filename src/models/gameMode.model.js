@@ -3,7 +3,8 @@ module.exports = (sequelize, Sequelize) => {
         // Model attributes are defined here
         name: {
             type: Sequelize.STRING(255),
-            allowNull: false
+            allowNull: false,
+            unique: true
         },
         createdBy: {
             type: Sequelize.STRING(255),
