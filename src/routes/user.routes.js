@@ -4,13 +4,13 @@ module.exports = app => {
     const user = require('../controllers/user.controller');
     const router = require('express').Router();
 
-    router.get('/', user.findAll);
+    router.get('/', authMiddleware.verifyToken, user.findAll);
 
     router.get('/:id', user.findOne);
 
-    router.put('/:id', user.update);
+    router.put('/:id', authMiddleware.verifyToken, user.update);
 
-    router.delete('/:id', user.delete);
+    router.delete('/:id', authMiddleware.verifyToken, user.delete);
 
     app.use('/api/user', router);
 }

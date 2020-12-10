@@ -10,9 +10,9 @@ module.exports = app => {
 
     router.get('/:id', game.findOne);
 
-    router.put('/:id', game.update);
+    router.put('/:id', authMiddleware.verifyToken, game.update);
 
-    router.delete('/:id', game.delete);
+    router.delete('/:id', authMiddleware.verifyToken, game.delete);
 
     app.use('/api/game', router);
 }

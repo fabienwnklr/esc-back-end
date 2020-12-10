@@ -10,9 +10,9 @@ module.exports = app => {
 
     router.get('/:id', tournament.findOne);
 
-    router.put('/:id', tournament.update);
+    router.put('/:id', authMiddleware.verifyToken, tournament.update);
 
-    router.delete('/:id', tournament.delete);
+    router.delete('/:id', authMiddleware.verifyToken, tournament.delete);
 
     app.use('/api/tournament', router);
 }

@@ -10,9 +10,9 @@ module.exports = app => {
 
     router.get('/:id', platform.findOne);
 
-    router.put('/:id', platform.update);
+    router.put('/:id', authMiddleware.verifyToken, platform.update);
 
-    router.delete('/:id', platform.delete);
+    router.delete('/:id', authMiddleware.verifyToken, platform.delete);
 
     app.use('/api/platform', router);
 }
