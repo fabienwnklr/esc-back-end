@@ -50,7 +50,7 @@ exports.findAll = (req, res) => {
     GameMode.findAll({
         include: [
             {
-                model: Game, as: 'games', attributes: ['name']
+                model: Game, as: 'games', attributes: ['name', 'id']
             }
         ],
     })
@@ -120,7 +120,7 @@ exports.delete = (req, res) => {
                     message: "GameMode was deleted successfully!"
                 });
             } else {
-                res.send({
+                res.status(404).send({
                     message: `Cannot delete GameMode with id=${id}. Maybe GameMode was not found!`
                 });
             }
