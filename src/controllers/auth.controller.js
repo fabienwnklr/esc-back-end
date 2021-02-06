@@ -16,7 +16,6 @@ exports.register = (req, res) => {
         username: req.body.username,
         email: req.body.email,
         password: bcrypt.hashSync(req.body.password, 15),
-        is_admin: true // !! A RETIRER !! \\
     };
 
     User.create(newUser)

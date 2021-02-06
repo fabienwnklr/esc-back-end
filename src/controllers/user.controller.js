@@ -5,7 +5,7 @@ const { Op } = require('sequelize');
 
 exports.findAll = (req, res) => {
     User.findAll({
-        attributes: ['username', 'id', 'email']
+        attributes: ['username', 'id', 'email', 'is_admin', 'createdAt', 'updatedAt']
     })
         .then(data => {
             console.log(data)
@@ -23,7 +23,7 @@ exports.findOne = (req, res) => {
     const id = req.params.id;
 
     User.findByPk(id, {
-        attributes: ['username', 'id', 'email']
+        attributes: ['username', 'id', 'email', 'is_admin', 'createdAt', 'updatedAt']
     })
         .then(data => {
             if (!data) {
@@ -36,6 +36,7 @@ exports.findOne = (req, res) => {
         })
         .catch(err => {
             res.status(500).send({
+                errorThrow: err,
                 message: `Erreur de récupération de l'utilisateur pour id = ${id}`
             });
         });
