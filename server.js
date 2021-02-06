@@ -37,7 +37,7 @@ require('./src/routes/game.routes')(app);
 require('./src/routes/gamesMode.routes')(app);
 require('./src/routes/tournament.routes')(app);
 
-db.sequelize.sync({ alter: false }).then(() => {
+db.sequelize.sync({ force: false }).then(() => {
     console.info('Re-sync db.');
     app.listen(port, () => {
         console.info(`API run at http://localhost:${port}`);

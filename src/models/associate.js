@@ -3,9 +3,18 @@ module.exports = (sequelize) => {
         through: 'tournament_game',
         as: 'games',
     });
-    sequelize.models.Game.belongsTo(sequelize.models.Tournament, {
+    sequelize.models.Game.belongsToMany(sequelize.models.Tournament, {
         through: 'tournament_game',
         as: 'tournaments',
+    });
+
+
+    sequelize.models.Tournament.hasOne(sequelize.models.game_mode, {
+        as: 'gameMode',
+    });
+    sequelize.models.game_mode.belongsToMany(sequelize.models.Tournament, {
+        through: 'tournament_game_mode',
+        as: '',
     });
 
 
@@ -13,7 +22,7 @@ module.exports = (sequelize) => {
         through: 'tournament_platform',
         as: 'platforms',
     });
-    sequelize.models.Platform.belongsTo(sequelize.models.Tournament, {
+    sequelize.models.Platform.belongsToMany(sequelize.models.Tournament, {
         through: 'tournament_platform',
         as: 'tournaments',
     });
@@ -24,7 +33,7 @@ module.exports = (sequelize) => {
         as: 'platforms',
     });
 
-    sequelize.models.Platform.belongsTo(sequelize.models.Game, {
+    sequelize.models.Platform.belongsToMany(sequelize.models.Game, {
         through: 'platform_game',
         as: 'games',
     });
@@ -34,7 +43,7 @@ module.exports = (sequelize) => {
         through: 'user_tournament',
         as: 'users',
     });
-    sequelize.models.User.belongsTo(sequelize.models.Tournament, {
+    sequelize.models.User.belongsToMany(sequelize.models.Tournament, {
         through: 'user_tournament',
         as: 'tournaments',
     });

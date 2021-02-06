@@ -70,7 +70,7 @@ exports.findOne = (req, res) => {
     GameMode.findByPk(id, {
         include: [
             {
-                model: Game, as: 'games', attributes: ['name']
+                model: Game, as: 'games', attributes: ['name', 'id']
             }
         ],
     })
@@ -79,6 +79,7 @@ exports.findOne = (req, res) => {
         })
         .catch(err => {
             res.status(500).send({
+                errorThrow: err,
                 message: `Erreur de récupération du mode de jeu pour id = ${id}`
             });
         });
