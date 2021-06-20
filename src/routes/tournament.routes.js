@@ -4,7 +4,9 @@ module.exports = app => {
     const tournament = require('../controllers/tournament.controller');
     const router = require('express').Router();
 
-    router.post('/create', authMiddleware.verifyToken ,tournament.create);
+    router.post('/create', authMiddleware.verifyToken, tournament.create);
+
+    router.post('/addUser', authMiddleware.verifyToken, tournament.addUser);
 
     router.get('/', tournament.findAll);
 

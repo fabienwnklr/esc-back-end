@@ -32,7 +32,7 @@ exports.create = async (req, res) => {
 
     await tournamentCreated.addGame(game);
     await tournamentCreated.addPlatforms(platforms);
-    await tournamentCreated.addUsers(creator); // A voir
+    await tournamentCreated.addUsers(creator);
 
     const result = await Tournament.findOne({
         where: { id: tournamentCreated.dataValues.id },
@@ -79,7 +79,7 @@ exports.findAll = (req, res) => {
         });
 };
 
-exports.findOne = (req, res) => {
+exports.findOne = async (req, res) => {
     const id = req.params.id;
 
     Tournament.findByPk(id, {
@@ -159,18 +159,18 @@ exports.deleteAll = (req, res) => {
         truncate: false
     })
         .then(nums => {
-            res.send({ message: `${nums} Tutorials were deleted successfully!` });
+            res.send({ message: `${nums} tournaments were deleted successfully!` });
         })
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while removing all tutorials."
+                    err.message || "Some error occurred while removing all tournaments."
             });
         });
 };
 
 exports.findAllActive = (req, res) => {
-    Tutorial.findAll({
+    Tournament.findAll({
         where: {
             start_date: {
                 [Op.gte]: db.Sequelize.literal('NOW()')
@@ -183,7 +183,49 @@ exports.findAllActive = (req, res) => {
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while retrieving tutorials."
+                    err.message || "Some error occurred while retrieving tournament."
             });
         });
 };
+
+exports.addUser = async (req, res) => {
+    try {
+        if (!req.body.tournament || !req.body.user) {
+            res.status(300).send({
+                message: 'Missing data.'
+            });
+            return;
+        }
+        const id_tournament = req.body.tournament;
+        const id_user = req.body.user;
+        // Get tournament targeted
+        const tournament = await Tournament.findByPk(id_tournament, {
+            include: [
+                {
+                    model: Game, as: 'games', attributes: ['name']
+                },
+                {
+                    model: Platform, as: 'platforms', attributes: ['name']
+                },
+                {
+                    model: User, as: 'users', attributes: ['username']
+                }
+            ],
+        })
+        // Then the user
+        const user = await User.findByPk(id_user)
+        // And add user to tournament
+        const userAdded = await tournament.addUser(user);
+
+        if (userAdded) {
+            res.status(200).send({
+                message: 'You have joined tournament ! Congrat\' !'
+            })
+        }
+
+    } catch (error) {
+        res.status(500).send({
+            message: error.message || 'Error when add user to this tournament'
+        })
+    }
+}
