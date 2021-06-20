@@ -68,6 +68,7 @@ exports.findAll = (req, res) => {
                 model: User, as: 'users', attributes: ['username']
             }
         ],
+        order: [['createdAt', 'DESC']]
     })
         .then(data => {
             res.send(data);
