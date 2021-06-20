@@ -13,16 +13,7 @@ exports.create = async (req, res) => {
         nb_participant: req.body.nb_participant,
         game_mode: req.body.game_mode,
         platform: req.body.platforms,
-        game: req.body.game,
-        // user: {
-        //     id: req.body.user_id
-        // },
-        // game: {
-        //     id: req.body.game
-        // },
-        // platform: {
-        //     id: req.body.platform
-        // }
+        game: req.body.game
     };
     if (!newTournament.name || !newTournament.start_date || !newTournament.createdBy) {
         res.status(400).json({
@@ -39,9 +30,9 @@ exports.create = async (req, res) => {
         }
     });
 
-    // await tournamentCreated.addGame(game);
-    // await tournamentCreated.addPlatforms(platforms);
-    // await tournamentCreated.addUsers(creator); // A voir
+    await tournamentCreated.addGame(game);
+    await tournamentCreated.addPlatforms(platforms);
+    await tournamentCreated.addUsers(creator); // A voir
 
     const result = await Tournament.findOne({
         where: { id: tournamentCreated.dataValues.id },
