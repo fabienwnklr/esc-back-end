@@ -1,7 +1,7 @@
 const db = require('../models');
 const User = db.user;
-const GameMode = db.gameMode;
 const Game = db.game;
+const GameMode = db.gameMode;
 const Platform = db.platform;
 const { Op } = require('sequelize');
 
@@ -85,26 +85,31 @@ exports.findOne = (req, res) => {
         });
 };
 
-exports.update = (req, res) => {
+exports.update = async (req, res) => {
     const id = req.params.id;
+    const games = req.body.games;
 
-    GameMode.update(req.body, {
-        where: { id: id }
+    let gamesObj = [];
+    for (let i = 0; i < games.length; i++) {
+        const game = await Game.findByPk(games[i]);
+        gamesObj.push(game);
+    }
+
+    const mode = await GameMode.findByPk(id);
+
+    mode.setGames(gamesObj, {
+        where: { id }
     })
         .then(num => {
-            if (num == 1) {
+            console.log('num' + num)
                 res.send({
-                    message: 'GameMode was updated successfully.'
+                    message: 'GameMode was updated successfully.',
+                    games: gamesObj
                 });
-            } else {
-                res.send({
-                    message: `Cannot update GameMode with id=${id}. Maybe GameMode was not found or req.body is empty!`
-                });
-            }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error updating GameMode with id=" + id
+                message: `Error updating GameMode with id=${id}`
             });
         });
 };
