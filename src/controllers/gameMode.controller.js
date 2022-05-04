@@ -100,11 +100,11 @@ exports.update = async (req, res) => {
     mode.setGames(gamesObj, {
         where: { id }
     })
-        .then(num => {
-            console.log('num' + num)
+        .then(data => {
                 res.send({
                     message: 'GameMode was updated successfully.',
-                    games: gamesObj
+                    games: gamesObj,
+                    val: data
                 });
         })
         .catch(err => {
