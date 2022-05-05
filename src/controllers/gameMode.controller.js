@@ -26,7 +26,7 @@ exports.create = async (req, res) => {
             where: { id: gameModeCreated.dataValues.id },
             include: [
                 {
-                    model: Game, as: 'games', attributes: ['name']
+                    model: Game, as: 'games', attributes: ['name', 'id']
                 }
             ],
         });

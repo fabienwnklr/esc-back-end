@@ -1,42 +1,65 @@
 const db = require("../models");
-const { Sequelize, gameMode } = require("../models");
+const { Sequelize } = require("../models");
 const Game = db.game;
 const GameMode = db.gameMode;
+const Platform = db.platform;
 const { Op } = require("sequelize");
 
-exports.create = (req, res) => {
-  const newGame = {
-    name: req.body.name,
-    imgUrl: req.body.imgUrl,
-    createdBy: req.body.createdBy,
-  };
-  if (!newGame.name) {
-    res.status(400).json({
-      message: "Please fill in all the fields",
-    });
-    return;
+exports.create = async (req, res) => {
+    try {
+        const newGame = {
+            name: req.body.name,
+            imgUrl: req.body.imgUrl,
+            createdBy: req.body.createdBy
+      };
+      const platformsAvalaible = req.body.platformsAvalaible;
+
+        if (!newGame.name || !newGame.createdBy || !platformsAvalaible) {
+            res.status(400).json({
+                message: 'Please fill in all the fields'
+            });
+            return;
+        }
+
+        const gameCreated = await Game.create(newGame);
+        const platforms = await Platform.findAll({
+            where: {
+                id: platformsAvalaible
+            }
+        });
+
+      await gameCreated.addPlatforms(platforms);
+      
+      const result = await Game.findOne({
+          where: { id: gameCreated.dataValues.id },
+          include: [
+              {
+                  model: Platform,
+                  as: 'platforms',
+                  attributes: ['name', 'id']
+              }
+          ]
+      });
+
+      res.status(200).send({
+          message: 'Game created successfully !',
+          values: result
+      });
+    } catch (error) {
+        if (error instanceof db.Sequelize.UniqueConstraintError) {
+            return res.send({
+                errorThrow: error,
+                message: 'This game already exist.'
+            })
+        }
+        console.error(error)
   }
 
-  Game.create(newGame)
-    .then((data) => {
-      Game.findByPk(data.id).then((gameAdded) => {
-        res.status(200).send({
-          message: "Game created successfully",
-          values: gameAdded.dataValues,
-        });
-      });
-    })
-    .catch((error) => {
-      res.status(500).send({
-        errorThrow: error,
-        message: "An error occured during creation",
-      });
-    });
 };
 
 exports.findAll = (req, res) => {
   Game.findAll({
-    include: [{ model: GameMode, as: "gamesMode", attributes: ['id', 'name'] }],
+    include: [{ model: Platform, as: "platforms", attributes: ['id', 'name'] }],
   })
     .then((data) => {
       res.send(data);
