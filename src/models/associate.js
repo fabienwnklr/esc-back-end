@@ -57,4 +57,14 @@ module.exports = (sequelize) => {
         through: 'mode_per_game',
         as: 'games',
     });
+
+
+    sequelize.models.Game.belongsToMany(sequelize.models.Platform, {
+        through: 'game_per_platform',
+        as: 'gamesPlatform'
+    });
+    sequelize.models.Platform.belongsToMany(sequelize.models.Game, {
+        through: 'game_per_platform',
+        as: 'platformsGame'
+    });
 }
