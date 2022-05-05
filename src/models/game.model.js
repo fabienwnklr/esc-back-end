@@ -5,7 +5,7 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING(255),
             allowNull: false
         },
-        imgUrl: {
+        thumbnail_path: {
             type: Sequelize.STRING(255),
             allowNull: true
         },

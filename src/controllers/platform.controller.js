@@ -6,8 +6,8 @@ const { Op } = require('sequelize');
 exports.create = (req, res) => {
     const newPlatform = {
         name: req.body.name,
-        imgUrl: req.body.imgUrl,
-        createdBy: req.body.createdBy,
+        thumbnail_path: req.body.thumbnail_path,
+        createdBy: req.body.createdBy
     };
     if (!newPlatform.name) {
         res.status(400).json({
